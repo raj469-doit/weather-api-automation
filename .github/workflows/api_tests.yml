@@ -23,17 +23,19 @@ jobs:
       run: |
         python -m pip install --upgrade pip
         pip install -r requirements.txt
+        # Install Playwright browsers and system dependencies
+        python -m playwright install --with-deps chromium
 
     - name: Run Tests
       env:
-        # This pulls the secret you will set in the next step
         OPENWEATHER_API_KEY: ${{ secrets.OPENWEATHER_API_KEY }}
       run: |
+        # This will now run API tests, Selenium tests, and Playwright tests
         python3 -m pytest -v --html=report.html --self-contained-html
 
     - name: Upload Test Report
       if: always()
       uses: actions/upload-artifact@v4
       with:
-        name: api-test-report
+        name: full-test-report
         path: report.html
