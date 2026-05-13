@@ -1,10 +1,12 @@
+import os
 from api_objects.base_client import BaseClient
 
 class WeatherService(BaseClient):
-    def __init__(self):
-        # Initialize the BaseClient (sets up session, base_url, and api_key)
-        super().__init__()
-
+    def __init__(self, api_key=None):
+        # If no key is passed, use the one from the .env file
+        api_key = api_key or os.getenv("OPENWEATHER_API_KEY")
+        super().__init__(api_key)
+        
     def get_current_weather(self, city_name: str):
         """
         Fetches current weather for a specific city.

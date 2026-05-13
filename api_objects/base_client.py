@@ -5,14 +5,11 @@ from dotenv import load_dotenv
 load_dotenv()
 
 class BaseClient:
-    def __init__(self):
-        self.api_key = os.getenv("OPENWEATHER_API_KEY")
-        self.base_url = "https://api.openweathermap.org/data/2.5"
+    def __init__(self, api_key):
         self.session = requests.Session()
-        
-        # We add the API key to the session's params so it's 
-        # automatically added to every request we make.
-        self.session.params = {"appid": self.api_key}
+        # We attach the key to the session parameters so every call uses it
+        self.session.params = {"appid": api_key}
+        self.base_url = "https://api.openweathermap.org/data/2.5"
 
     def get(self, endpoint, params=None):
         """A generic GET wrapper with error handling."""
