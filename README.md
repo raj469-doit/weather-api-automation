@@ -14,8 +14,10 @@ Why Pydantic? Standard assertions often only verify a single value (e.g., city =
 
 Authentication Handling: API keys are injected into the session parameters at the base level. This eliminates the need to pass credentials into individual test methods, adhering to the DRY (Don't Repeat Yourself) principle.
 
-Testing Strategy
+Testing Strategy 
 Data-Driven Execution: Utilized @pytest.mark.parametrize to execute a single test logic across multiple geographic coordinates, ensuring consistent coverage with minimal code bloat.
+
+Negative Testing & Security: Implemented targeted negative test cases (e.g., test_unauthorized_access_with_invalid_key) to verify the framework's handling of 401 Unauthorized responses. This ensures the system correctly identifies and reports authentication failures rather than throwing unhandled exceptions.
 
 CI/CD Integration: Powered by GitHub Actions. The suite executes on every push to main, pulling sensitive API credentials from GitHub Secrets to maintain security best practices.
 
@@ -54,6 +56,8 @@ To run and generate a self-contained HTML report:
 Bash
 python3 -m pytest -v --html=report.html --self-contained-html
 Roadmap & Scalability
+UI Automation Comparison: Developing parallel UI test suites in Selenium and Playwright to evaluate performance, stability, and "flakiness" across different rendering engines.
+
 Parallel Execution: Integration of pytest-xdist to decrease execution time as the suite grows.
 
 Mocking: Implementing a mocking library to simulate 500-series server errors and edge cases without relying on the live provider.
